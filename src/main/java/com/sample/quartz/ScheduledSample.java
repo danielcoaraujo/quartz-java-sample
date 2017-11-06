@@ -26,9 +26,9 @@ public class ScheduledSample {
     private String cron;
 
     @Bean
-    public CronTriggerFactoryBean exportFileCronTriggerFactoryBean() {
+    public CronTriggerFactoryBean cronTriggerFactoryBean() {
         CronTriggerFactoryBean factoryBean = new CronTriggerFactoryBean();
-        factoryBean.setJobDetail(exportFileJobDetails().getObject());
+        factoryBean.setJobDetail(jobDetails().getObject());
         factoryBean.setStartDelay(startDelay);
         factoryBean.setCronExpression(cron);
         factoryBean.setMisfireInstruction(SimpleTrigger.MISFIRE_INSTRUCTION_FIRE_NOW);
@@ -36,7 +36,7 @@ public class ScheduledSample {
     }
 
     @Bean
-    public JobDetailFactoryBean exportFileJobDetails() {
+    public JobDetailFactoryBean jobDetails() {
         JobDetailFactoryBean jobDetailFactoryBean = new JobDetailFactoryBean();
         jobDetailFactoryBean.setJobClass(QuartzJobSample.class);
         jobDetailFactoryBean.setDescription(description);

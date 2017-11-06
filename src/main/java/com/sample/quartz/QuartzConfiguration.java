@@ -34,15 +34,20 @@ public class QuartzConfiguration {
 
     @Bean
     public SchedulerFactoryBean schedulerFactoryBean() {
+        Properties quartzProperties = getProperties();
         SchedulerFactoryBean factory = new SchedulerFactoryBean();
         factory.setJobFactory(jobFactory());
         factory.setOverwriteExistingJobs(true);
+        factory.setQuartzProperties(quartzProperties);
+        factory.setTriggers(scheduledSample.cronTriggerFactoryBean().getObject());
+        return factory;
+    }
+
+    private Properties getProperties() {
         Properties quartzProperties = new Properties();
         quartzProperties.setProperty("org.quartz.scheduler.instanceName",instanceName);
         quartzProperties.setProperty("org.quartz.scheduler.instanceId",instanceId);
         quartzProperties.setProperty("org.quartz.threadPool.threadCount",threadCount);
-        factory.setQuartzProperties(quartzProperties);
-        factory.setTriggers(scheduledSample.exportFileCronTriggerFactoryBean().getObject());
-        return factory;
+        return quartzProperties;
     }
 }
