@@ -1,0 +1,18 @@
+spring:
+  datasource:
+    continueOnError: true
+  application:
+    name: QuartzApplication
+org:
+  quartz:
+    scheduler:
+      instanceName: spring-boot-quartz-sample
+      instanceId: AUTO
+    threadPool:
+      threadCount: 5
+job:
+  startDelay: 0
+#  repeatInterval: 10
+  description: Sample job
+  key: StatisticsJob
+  cron: ${CRON_EXPORT_FILE:0 0/1 * 1/1 * ? *}
